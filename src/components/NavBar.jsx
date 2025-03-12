@@ -21,7 +21,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const navigation = {
   categories: [
@@ -100,6 +100,13 @@ const navigation = {
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const [active, setActive] = useState(location.pathname);
+
+ const getLinkClass = (path) =>
+    active === path
+      ? "text-yellow-600"
+      : "text-gray-700";
 
   return (
     <div className="bg-white">
@@ -218,20 +225,23 @@ const NavBar = () => {
 
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               <div className="flow-root">
-                <a
-                  href="#"
+                <Link
+                  to="/auth"
                   className="-m-2 block p-2 font-medium text-gray-900"
+                  onClick={() => setOpen(false)}
                 >
                   Sign in
-                </a>
+                </Link>
               </div>
               <div className="flow-root">
-                <a
-                  href="#"
+                <Link
+                  to="/auth/register"
                   className="-m-2 block p-2 font-medium text-gray-900"
+                  onClick={() => setOpen(false)}
                 >
                   Create account
-                </a>
+                  
+                </Link>
               </div>
             </div>
           </DialogPanel>
@@ -367,16 +377,18 @@ const NavBar = () => {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-gray-700 hover:text-yellow-600"
+                  <Link
+                    to="/auth"
+                    className={`text-sm font-medium ${getLinkClass("/auth")}`}
+                    onClick={() => setActive("/auth")}
                   >
                     Sign in
-                  </a>
+                  </Link>
                   <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
                   <Link
                     to="/auth/register"
-                    className="text-sm font-medium text-gray-700 hover:text-yellow-600"
+                    className={`text-sm font-medium ${getLinkClass("/auth/register")}`}
+                    onClick={() => setActive("/auth/register")}
                   >
                     Create account
                   </Link>
