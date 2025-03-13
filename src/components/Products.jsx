@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 const products = [
   {
@@ -47,10 +49,17 @@ const Products = () => {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 text-center">
+      <div className="justify-between flex items-center md:flex-row flex-col sm:mb-4">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 text-center md: mb-2">
           Featured Products
         </h2>
-
+        <span className="cursor-pointer md:float-right">
+        <Link
+          to="/products"
+          className="text-md font-semibold text-blue-600 hover:text-blue-500 ml-1">Shop the collection</Link>
+          <ArrowRightIcon className="h-4 w-5 inline-block text-blue-600 hover:text-blue-500" />
+        </span>
+      </div>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <div key={product.id} className="group relative">

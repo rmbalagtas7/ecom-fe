@@ -33,7 +33,7 @@ const HeroSection = () => {
 
           {/* Button */}
           <button className="mt-6 px-6 py-2 text-gray-800 border border-gray-800 rounded-full hover:bg-gradient-to-r from-[#d4af37] to-[#b8860b] hover:text-white transition">
-            More Info
+            Shop Now
           </button>
         </div>
       </div>

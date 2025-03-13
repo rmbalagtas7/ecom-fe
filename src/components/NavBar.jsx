@@ -22,6 +22,7 @@ import {
 } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
+import Cart from "./Cart";
 
 const navigation = {
   categories: [
@@ -98,7 +99,7 @@ const navigation = {
   ],
 };
 
-const NavBar = () => {
+const NavBar = ( { cartCount, cart } ) => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const [active, setActive] = useState(location.pathname);
@@ -409,18 +410,10 @@ const NavBar = () => {
                 </div>
 
                 {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
-                    <ShoppingBagIcon
-                      aria-hidden="true"
-                      className="size-6 shrink-0 text-gray-400 group-hover:text-yellow-600"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-yellow-800">
-                      0
-                    </span>
-                    <span className="sr-only">items in cart, view bag</span>
-                  </a>
-                </div>
+                <Cart count={cartCount} cart={cart} />
+                {/* <Link to="/my-cart">
+                  <Cart count={cartCount} cart={cart} />
+                </Link> */}
               </div>
             </div>
           </div>
