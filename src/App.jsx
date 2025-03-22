@@ -15,10 +15,12 @@ import MyCart from "./pages/MyCart.jsx";
 function App() {
   const [cartCount, setCartCount] = useState(0);
   const [cart, setCart] = useState([]);
-
+  const accessToken = sessionStorage.getItem("authToken");
+  const user = sessionStorage.getItem("user");
+  const userLogin = JSON.parse(user);
   return (
     <Router>
-      <NavBar cartCount={cartCount} cart={cart} />
+      <NavBar cartCount={cartCount} cart={cart} token={accessToken} user={userLogin} />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth/register" element={<Registration />} />

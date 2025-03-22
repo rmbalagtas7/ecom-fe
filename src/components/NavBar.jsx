@@ -23,6 +23,7 @@ import {
 import logo from "../assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import Cart from "./Cart";
+import DropdownProfile from "./DropdownProfile";
 
 const navigation = {
   categories: [
@@ -99,15 +100,13 @@ const navigation = {
   ],
 };
 
-const NavBar = ( { cartCount, cart } ) => {
+const NavBar = ({ cartCount, cart, token, user }) => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const [active, setActive] = useState(location.pathname);
 
- const getLinkClass = (path) =>
-    active === path
-      ? "text-yellow-600"
-      : "text-gray-700";
+  const getLinkClass = (path) =>
+    active === path ? "text-yellow-600" : "text-gray-700";
 
   return (
     <div className="bg-white">
@@ -241,7 +240,6 @@ const NavBar = ( { cartCount, cart } ) => {
                   onClick={() => setOpen(false)}
                 >
                   Create account
-                  
                 </Link>
               </div>
             </div>
@@ -270,11 +268,7 @@ const NavBar = ( { cartCount, cart } ) => {
               <div className="ml-4 flex lg:ml-0">
                 <a href="/">
                   <span className="sr-only">Your Company</span>
-                  <img
-                    alt=""
-                    src={logo}
-                    className="h-10 w-auto"
-                  />
+                  <img alt="" src={logo} className="h-10 w-auto" />
                 </a>
               </div>
 
@@ -377,26 +371,8 @@ const NavBar = ( { cartCount, cart } ) => {
               </PopoverGroup>
 
               <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <Link
-                    to="/auth"
-                    className={`text-sm font-medium ${getLinkClass("/auth")}`}
-                    onClick={() => setActive("/auth")}
-                  >
-                    Sign in
-                  </Link>
-                  <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                  <Link
-                    to="/auth/register"
-                    className={`text-sm font-medium ${getLinkClass("/auth/register")}`}
-                    onClick={() => setActive("/auth/register")}
-                  >
-                    Create account
-                  </Link>
-                </div>
-
                 {/* Search */}
-                <div className="flex lg:ml-6">
+              {/*   <div className="flex lg:ml-6">
                   <a
                     href="#"
                     className="p-2 text-gray-400 hover:text-yellow-600"
@@ -407,6 +383,44 @@ const NavBar = ( { cartCount, cart } ) => {
                       className="size-6"
                     />
                   </a>
+                </div> */}
+
+                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                  {!token ? (
+                    <>
+                      <Link
+                        to="/auth"
+                        className={`text-sm font-medium ${getLinkClass(
+                          "/auth"
+                        )}`}
+                        onClick={() => setActive("/auth")}
+                      >
+                        Sign in
+                      </Link>
+                      <span
+                        aria-hidden="true"
+                        className="h-6 w-px bg-gray-200"
+                      />
+                      <Link
+                        to="/auth/register"
+                        className={`text-sm font-medium ${getLinkClass(
+                          "/auth/register"
+                        )}`}
+                        onClick={() => setActive("/auth/register")}
+                      >
+                        Create account
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                    
+                      <DropdownProfile user={user} /> 
+                      <span
+                        aria-hidden="true"
+                        className="h-6 w-px bg-gray-200"
+                      />
+                    </>
+                  )}
                 </div>
 
                 {/* Cart */}

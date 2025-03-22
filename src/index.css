@@ -1,1 +1,6 @@
 @import "tailwindcss";
+@plugin "tailwindcss-debug-screens" {
+  className: 'debug-screens';
+  position: 'bottom, left';
+  prefix: 'screen: ';
+}

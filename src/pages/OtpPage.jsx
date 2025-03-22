@@ -64,11 +64,11 @@ const OtpPage = () => {
       setError("");
       const response = await verifyOtp(email, otp.join(""));
       console.log(response);
-      if (response === "OTP Verified successfully!") {
+      if (response.success === true) {
         setIsOpen(true);
-        setTitle(response);
+        setTitle(response.message);
       } else {
-        setError(response);
+        setError(response.message);
       }
     }
   }

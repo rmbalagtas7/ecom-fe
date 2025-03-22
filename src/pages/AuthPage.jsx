@@ -8,6 +8,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const AuthPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -22,8 +23,12 @@ const AuthPage = () => {
     onSubmit: async (values) => {
       try {
         const response = await login(values);
-        console.log("User logged in:", response);
-        //navigate("/");
+        if (response.success === true) {
+          navigate("/");
+          window.location.reload();
+        } else {
+          setError(response.message);
+        }
       } catch (error) {
         console.error("Login error:", error);
       }
@@ -74,6 +79,8 @@ const AuthPage = () => {
                   onBlur={formik.handleBlur}
                   className="mt-2 block w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
+
+                 <p className="text-red-500 text-sm mt-1">{error}</p>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}

@@ -35,9 +35,12 @@ const Registration = () => {
     onSubmit: async (values) => {
       try {
         const response = await register(values);
-        console.log("User registered:", response);
-        navigate("/auth/otp ", { state: { email: values.email } });
+        console.log("User registered:", response.success);
+        if (response.success === true) {
+           navigate("/auth/otp ", { state: { email: values.email } });
+        }
       } catch (error) {
+        navigate("/auth/register");
         console.error("Registration error:", error);
       }
     },

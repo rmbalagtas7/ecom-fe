@@ -1,10 +1,8 @@
 import axios from "axios";
 
 
-const BASE_URL = "http://localhost:8080/auth";
-
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: "/api/user",
   headers: {
     "Content-Type": "application/json",
   },
@@ -22,10 +20,17 @@ export const register = async (user) => {
 
 export const login = async (email, password) => {
     try {
-        const response = await api.post("/login", {email, password}, { withCredentials: true });
+        const response = await api.post("/auth", email,password);
+
+        if (response.data.access_token) {
+            sessionStorage.setItem("authToken", response.data.access_token);
+            sessionStorage.setItem("user", JSON.stringify(response.data.user));
+        }
+        
         return response.data;
     } catch (error) {
-        return error.response.data;
+        console.error("Login Error:", error.response?.data || error);
+        return error.response?.data || { success: false, error: "Unknown error" };
     }
 };
 
